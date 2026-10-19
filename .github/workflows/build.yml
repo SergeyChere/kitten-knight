@@ -17,12 +17,12 @@ jobs:
     name: Android (APK + AAB)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
@@ -51,8 +51,9 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
+          report() { grep -E "error|Error|ERROR|What went wrong|wrong:|FAILED|failed|Exception|cannot find|not found" "$1" | grep -v "^\s*$" | tail -n 40 | sed 's/^/::error::/'; }
           chmod +x gradlew
-          ./gradlew --no-daemon assembleDebug bundleRelease
+          ./gradlew --no-daemon assembleDebug bundleRelease > ../gradle.log 2>&1 || { tail -n 60 ../gradle.log; report ../gradle.log; exit 1; }
           mkdir -p ../dist
           cp app/build/outputs/apk/debug/app-debug.apk ../dist/kitten-knight-android-test.apk
           cp app/build/outputs/bundle/release/app-release.aab ../dist/kitten-knight-google-play.aab
@@ -72,8 +73,8 @@ jobs:
           - { os: macos-latest, name: macOS, args: --mac }
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -86,7 +87,11 @@ jobs:
       - name: Install
         run: npm ci
       - name: Build
-        run: npx electron-builder ${{ matrix.args }} --publish never
+        shell: bash
+        run: |
+          report() { grep -E "error|Error|ERROR|What went wrong|wrong:|FAILED|failed|Exception|cannot find|not found" "$1" | grep -v "^\s*$" | tail -n 40 | sed 's/^/::error::/'; }
+          npx electron-builder ${{ matrix.args }} --publish never > build.log 2>&1 || { tail -n 60 build.log; report build.log; exit 1; }
+          tail -n 15 build.log
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
       - uses: actions/upload-artifact@v4
@@ -103,8 +108,8 @@ jobs:
     name: iOS (compile check)
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -117,10 +122,11 @@ jobs:
       - name: Build for the simulator (no signing)
         working-directory: ios/App
         run: |
+          report() { grep -E "error|Error|ERROR|What went wrong|wrong:|FAILED|failed|Exception|cannot find|not found" "$1" | grep -v "^\s*$" | tail -n 40 | sed 's/^/::error::/'; }
           xcodebuild -project App.xcodeproj -scheme App -configuration Debug \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
-            CODE_SIGNING_ALLOWED=NO build | tail -n 30
-          test ${PIPESTATUS[0]} -eq 0
+            CODE_SIGNING_ALLOWED=NO build > xcode.log 2>&1 || { tail -n 60 xcode.log; report xcode.log; exit 1; }
+          tail -n 5 xcode.log
 
   release:
     name: GitHub Release
