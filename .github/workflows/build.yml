@@ -51,7 +51,7 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
-          report() { grep -E "error|Error|ERROR|What went wrong|wrong:|FAILED|failed|Exception|cannot find|not found" "$1" | grep -v "^\s*$" | tail -n 40 | sed 's/^/::error::/'; }
+          report() { { grep -A 12 "What went wrong" "$1"; grep -E "error:|ERROR|e: |cannot find|not found" "$1" | tail -n 25; } | grep -v "^\s*$" | head -n 45 | sed 's/^/::error::/'; }
           chmod +x gradlew
           ./gradlew --no-daemon assembleDebug bundleRelease > ../gradle.log 2>&1 || { tail -n 60 ../gradle.log; report ../gradle.log; exit 1; }
           mkdir -p ../dist
@@ -89,7 +89,7 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          report() { grep -E "error|Error|ERROR|What went wrong|wrong:|FAILED|failed|Exception|cannot find|not found" "$1" | grep -v "^\s*$" | tail -n 40 | sed 's/^/::error::/'; }
+          report() { { grep -A 12 "What went wrong" "$1"; grep -E "error:|ERROR|e: |cannot find|not found" "$1" | tail -n 25; } | grep -v "^\s*$" | head -n 45 | sed 's/^/::error::/'; }
           npx electron-builder ${{ matrix.args }} --publish never > build.log 2>&1 || { tail -n 60 build.log; report build.log; exit 1; }
           tail -n 15 build.log
         env:
@@ -122,7 +122,7 @@ jobs:
       - name: Build for the simulator (no signing)
         working-directory: ios/App
         run: |
-          report() { grep -E "error|Error|ERROR|What went wrong|wrong:|FAILED|failed|Exception|cannot find|not found" "$1" | grep -v "^\s*$" | tail -n 40 | sed 's/^/::error::/'; }
+          report() { { grep -A 12 "What went wrong" "$1"; grep -E "error:|ERROR|e: |cannot find|not found" "$1" | tail -n 25; } | grep -v "^\s*$" | head -n 45 | sed 's/^/::error::/'; }
           xcodebuild -project App.xcodeproj -scheme App -configuration Debug \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
             CODE_SIGNING_ALLOWED=NO build > xcode.log 2>&1 || { tail -n 60 xcode.log; report xcode.log; exit 1; }
