@@ -1,0 +1,12 @@
+{
+  "appId": "com.robert.kittenknight",
+  "appName": "Kitten Knight",
+  "webDir": "www",
+  "backgroundColor": "#000000",
+  "android": {
+    "backgroundColor": "#000000",
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false
+  }
+}

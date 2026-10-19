@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kitten Knight Privacy Policy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one calm reading column; a dusk-tinted header band carries the game's identity, the policy text stays plain */
+:root{
+  --bg:#f7f5f2; --fg:#24212b; --muted:#625c6b; --line:#dcd6de;
+  --band:#2a2236; --band-fg:#f4efe6; --sun:#c9781e;
+  --display:"Pixelify Sans", ui-monospace, "Courier New", monospace;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#17141c;--fg:#e9e4ee;--muted:#a59db0;--line:#352f3e;--band:#221b2c;--band-fg:#f4efe6;--sun:#f0a94a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17141c;--fg:#e9e4ee;--muted:#a59db0;--line:#352f3e;--band:#221b2c;--band-fg:#f4efe6;--sun:#f0a94a;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.65}
+header{background:var(--band);color:var(--band-fg);padding-block:44px 36px}
+.wrap{max-width:68ch;margin:0 auto;padding-inline:20px}
+.game{font-family:var(--display);font-size:15px;letter-spacing:.08em;color:var(--sun);margin:0 0 6px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,6vw,44px);line-height:1.1;margin:0;text-wrap:balance}
+.meta{margin:14px 0 0;color:color-mix(in srgb,var(--band-fg) 75%,transparent);font-size:15px}
+main{padding-block:28px 56px}
+.summary{border-left:3px solid var(--sun);padding:4px 0 4px 16px;margin:0 0 32px;font-size:18px}
+h2{font-family:var(--body);font-weight:600;font-size:20px;margin:32px 0 6px;text-wrap:balance}
+p,ul{margin:0 0 12px}
+ul{padding-left:1.2em}
+li{margin:0 0 6px}
+.contact{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:6px}
+.email{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:16px;background:color-mix(in srgb,var(--sun) 12%,transparent);padding:4px 10px;border-radius:4px;user-select:all;word-break:break-all}
+button{font:inherit;font-size:14px;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:4px;padding:4px 12px;cursor:pointer}
+button:hover{border-color:var(--sun)}
+button:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;padding-block:18px 32px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="game">KITTEN KNIGHT</p>
+    <h1>Privacy Policy</h1>
+    <p class="meta">Effective date: October 11, 2026 · Developer: Sergii</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="summary">Kitten Knight does not collect, store on any server, or share any personal information. There are no accounts, ads, analytics or tracking.</p>
+
+  <h2>Who we are</h2>
+  <p>Kitten Knight is a single-player game made by an independent developer, Sergii. This policy applies to every version of the game: Android (Google Play), iPhone (App Store), desktop (Linux and other platforms) and the web version.</p>
+
+  <h2>Information we collect</h2>
+  <p>We do not collect any personal information. The game does not ask for your name, email, location, contacts, photos, or any other personal or device data, and it does not send any data to us or to anyone else.</p>
+
+  <h2>Data saved on your device</h2>
+  <p>To keep your progress, the game saves a small amount of game data on your own device only:</p>
+  <ul>
+    <li>best scores and your list of best runs,</li>
+    <li>fish collected, upgrades, unlocked heroes and the hero you picked,</li>
+    <li>achievements and game settings such as sound volume and graphics quality.</li>
+  </ul>
+  <p>This data never leaves your device. You can delete it at any time by clearing the app's storage or uninstalling the game.</p>
+
+  <h2>Advertising, analytics and third parties</h2>
+  <p>The game contains no advertising, no analytics or crash-reporting tools, and no third-party services that collect data. It does not use the advertising ID.</p>
+  <p>The app stores that distribute the game, such as Google Play and the App Store, may collect information under their own privacy policies when you download or update apps. That collection is handled by the store, not by Kitten Knight.</p>
+
+  <h2>Permissions</h2>
+  <p>The game does not request access to your camera, microphone, location, contacts, photos or files. On Android the app includes the standard internet permission that the app framework adds by default; the game does not use it to send or receive personal data.</p>
+
+  <h2>Children</h2>
+  <p>Kitten Knight does not collect personal information from anyone, including children under 13. Because no data is collected, there is nothing to share or sell.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If this policy changes, the updated version will be posted on this page with a new effective date.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about this policy or the game:</p>
+  <div class="contact">
+    <span class="email" id="email">che.sergii@gmail.com</span>
+    <button type="button" id="copy">Copy email</button>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Kitten Knight © 2026 Sergii</div>
+</footer>
+
+<script>
+document.getElementById('copy').addEventListener('click', function () {
+  var b = this, t = document.getElementById('email');
+  function sel() { var r = document.createRange(); r.selectNodeContents(t); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selected, press Ctrl+C'; }
+  try {
+    navigator.clipboard.writeText(t.textContent).then(function () { b.textContent = 'Copied'; }, sel);
+  } catch (e) { sel(); }
+});
+</script>
+
+</body>
+</html>

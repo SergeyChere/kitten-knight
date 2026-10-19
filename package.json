@@ -1,0 +1,66 @@
+{
+  "name": "kitten-knight",
+  "productName": "Kitten Knight",
+  "version": "1.1.0",
+  "description": "Kitten Knight: Chase the Dawn - a voxel runner with a sword",
+  "main": "electron/main.js",
+  "author": "Sergii <che.sergii@gmail.com>",
+  "homepage": "https://github.com/SergeyChere/kitten-knight",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "web": "npx serve www",
+    "desktop": "electron .",
+    "sync": "npx cap sync",
+    "android": "npx cap sync android && npx cap open android",
+    "ios": "npx cap sync ios && npx cap open ios",
+    "icons": "npx capacitor-assets generate --iconBackgroundColor #1a1428 --splashBackgroundColor #000000",
+    "build:linux": "electron-builder --linux",
+    "build:snap": "electron-builder --linux snap",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac"
+  },
+  "devDependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/app": "8.1.2",
+    "@capacitor/assets": "3.0.5",
+    "@capacitor/cli": "8.5.3",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/ios": "8.5.3",
+    "electron": "44.7.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "com.robert.kittenknight",
+    "productName": "Kitten Knight",
+    "copyright": "Copyright © 2026 Sergii",
+    "files": ["electron/**/*", "www/**/*", "resources/icon.png", "!**/node_modules/**/*"],
+    "directories": { "output": "dist", "buildResources": "resources" },
+    "linux": {
+      "target": ["AppImage", "deb", "snap"],
+      "category": "Game",
+      "icon": "resources/icon.png",
+      "executableName": "kitten-knight",
+      "synopsis": "Hold back the sunset in a voxel runner with a sword",
+      "description": "The Dusk Lord stole the dawn. Catch sparks to hold the sun in the sky and reach every magic gate before sunset.",
+      "maintainer": "Sergii <che.sergii@gmail.com>",
+      "desktop": {
+        "entry": {
+          "Name": "Kitten Knight",
+          "Comment": "Hold back the sunset in a voxel runner with a sword",
+          "Categories": "Game;ActionGame;ArcadeGame;",
+          "Keywords": "runner;voxel;cat;kitten;knight;arcade;"
+        }
+      }
+    },
+    "snap": {
+      "summary": "Hold back the sunset in a voxel runner with a sword",
+      "grade": "stable",
+      "confinement": "strict",
+      "plugs": ["default", "joystick", "audio-playback", "opengl"]
+    },
+    "win": { "target": ["nsis", "portable"], "icon": "resources/icon.png" },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true },
+    "mac": { "target": ["dmg"], "category": "public.app-category.arcade-games", "icon": "resources/icon.png" }
+  }
+}
