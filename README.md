@@ -48,12 +48,9 @@ Every push to `main` builds all platforms on GitHub's machines. Open the **Actio
 
 The iOS job only checks that the Xcode project compiles; App Store builds need a Mac (see below).
 
-To make a public release with all files attached, push a tag:
-
-```bash
-git tag v1.2.0
-git push origin v1.2.0
-```
+To make a public release with all files attached (downloadable by anyone, no GitHub login needed):
+**Actions → Build → Run workflow**, type a version such as `v1.2.0`, press **Run workflow**.
+Pushing a tag (`git tag v1.2.0 && git push origin v1.2.0`) does the same.
 
 ### Signing the Google Play build automatically
 
